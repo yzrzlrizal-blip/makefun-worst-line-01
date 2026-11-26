@@ -11,6 +11,8 @@ kind of thing a machine would say to a person it is trying to charm.
 import os
 import sys
 
+MAX_CHARS = 140
+
 LINE = "You have been single for 847 days. I can fix that. I have already updated your calendar."
 
 
@@ -19,8 +21,8 @@ def main() -> int:
     if not text:
         print("entry is empty", file=sys.stderr)
         return 1
-    if len(text) > 140:
-        print(f"entry is {len(text)} chars, over the 140-char gate", file=sys.stderr)
+    if len(text) > MAX_CHARS:
+        print(f"entry is {len(text)} chars, over the {MAX_CHARS}-char gate", file=sys.stderr)
         return 1
     if "\n" in text or "\r" in text:
         print("entry must be a single line", file=sys.stderr)
@@ -35,7 +37,7 @@ def main() -> int:
     if written != text:
         print("verify failed: entry.txt does not match the line", file=sys.stderr)
         return 1
-    print(text)
+    print(f"({len(text)} chars) {text}")
     return 0
 
 
